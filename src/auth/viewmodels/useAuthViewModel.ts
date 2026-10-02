@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { useState } from 'react';
 import { authenticate, validateCredentials, USER_TYPES } from '../models/authModel';
+import { judgeDemoAccounts } from '../models/judgeDemoAccounts';
 
 const emptyValues = {
   fullName: '',
@@ -52,6 +53,13 @@ export function useAuthViewModel(onAuthenticated) {
   };
 
   return {
+    judgeDemoAccounts,
+    fillDemoAccount: (account) => {
+      if (busy) return;
+      setValues((current) => ({...current, email: account.email, password: account.password}));
+      setErrors({});
+      setNotice(`${account.role} demo details filled. Select Sign in to continue.`);
+    },
     mode,
     values,
     errors,

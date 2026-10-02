@@ -204,6 +204,27 @@ export default function AuthScreen(vm) {
             </form>
           )}
 
+          {!forgot && !signup && (
+            <section className="judge-demo" aria-labelledby="judge-demo-title">
+              <h3 id="judge-demo-title">Demo access for judges</h3>
+              <p>Choose a role to fill the sign-in details and explore its dashboard.</p>
+              <div className="judge-demo-list">
+                {vm.judgeDemoAccounts.map((account) => (
+                  <div className="judge-demo-account" key={account.role}>
+                    <div className="judge-demo-account-heading">
+                      <strong>{account.role}</strong>
+                      <button type="button" className="text-link" disabled={vm.busy}
+                        aria-label={`Use ${account.role} demo account`}
+                        onClick={() => vm.fillDemoAccount(account)}>Use account <ArrowRight size={13} aria-hidden="true" /></button>
+                    </div>
+                    <div className="judge-demo-credential"><span>Email</span><code>{account.email}</code></div>
+                    <div className="judge-demo-credential"><span>Password</span><code>{account.password}</code></div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
           {!forgot && (
             <div className="card-bottom">
               <span>{signup ? 'Already have an account?' : 'Don’t have an account?'}</span>
